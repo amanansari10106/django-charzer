@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <title>Charging Stations</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Roboslog</a>
+        <form class="form-inline">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
+
+    <br />
+
+    <div class="jumbotron">
+      <div class="container">
+        <div style="background-color: transparent; !important">
+          <h1 class="display-4">Here's a list of Charging Stations:</h1>
+          <hr class="my-4" />
+        </div>
+        {% for charger in chargers.all %}
+        <div class="row">
+          <div
+            style="display: flex; align-items: center; justify-content: center"
+            class="col-3"
+          >
+            <img src="{{ charger.charger_brand_logo.url }}" class="img-fluid" />
+          </div>
+          <div class="col-6">
+            <p class="display-4" style="border-bottom: solid 1px black">
+              {{ charger.charger_name }}
+            </p>
+            <p style="font-size: larger">
+              Latitude: {{ charger.charger_latitude }}, Longitude: {{ charger.charger_longitude }}
+            </p>
+            <p style="font-size: larger">
+              Availability: {{ charger.charger_online }}
+            </p>
+          </div>
+          <div
+            style="display: flex; align-items: center; justify-content: center"
+            class="col-3"
+          >
+            <div class="col-6">
+              <a
+                href="{% url 'detail' charger.charger_id %}"
+                style="text-decoration: none"
+                ><button type="button" class="btn btn-outline-info btn-block">
+                  Details
+                </button></a
+              >
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

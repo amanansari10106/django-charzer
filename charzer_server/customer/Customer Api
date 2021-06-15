@@ -1,0 +1,221 @@
+Customer Api
+
+
+It deals with customer data and requests.
+
+It contains the following data:
+
+send OTP on customer's number.
+verify OTP.
+Registers or login customer.
+view and edit profile.
+view list of bookmark chargers of Customer.
+view, edit, delete and create a bookmark.
+view complete details of an bookmark.
+view charger detail.
+view list of vehicles of Customer.
+view, edit, delete and create a vehicle.
+view list of appointments of Customer.
+view, create an appointment.
+update appointment status
+view complete details of an appointment.
+view list of coupons.
+create bill.
+check referal id.
+list of chargers with the filters.
+##
+list of ads
+list og coupons
+Docs for app Info 
+get and post notification
+rate a charger
+update customer credit
+Subscribe the customer to available subscriptions
+list of available subscriptions
+
+Register Customer by OTP
+
+First an OTP is sent on customer number.
+POST-[Send OTP](https:http://http://54.157.180.189:8000/customer/SendOtp/?phone={phone})
+
+Then we verify the otp that was sent.
+POST-[Verify OTP](https:http://http://54.157.180.189:8000/customer/VerifyOtp/?phone={phone}&otp={otp})
+
+A customer is created with customer number, session id and default Customer details.
+
+-----------------------------------------------------------------------------------------
+Check Referal ID
+
+Checks the referal id provided by customer at the time of registeration
+PUT-(http://54.157.180.189:8000/customer/ReferalCheck/?referalID={referalID}&customer_id={id}&authkey={token})
+
+-----------------------------------------------------------------------------------------
+Login Customer by OTP
+
+First an OTP is sent on customer number.
+POST-[Send OTP](https:http://http://54.157.180.189:8000/customer/SendOtp/?phone={phone})
+
+Then we verify the otp that was sent.
+POST-[Verify OTP](http://54.157.180.189:8000/customer/VerifyOtp/?phone={phone}&otp={otp})
+
+A  new customer session is created and customer is logged in
+-----------------------------------------------------------------------------------------
+Cusomer Profile
+
+Customer details are given by
+GET-(http://54.157.180.189:8000/customer/CustomerProfile/?customer_id={id}&authkey={token})
+
+Customer details a edited by
+PUT-(http://54.157.180.189:8000/customer/CustomerProfile/?customer_id={id}&authkey={token})
+
+-----------------------------------------------------------------------------------------
+Bookmark
+
+View list of Bookmarked chargers by customer
+GET-(http://54.157.180.189:8000/customer/Bookmarks/?customer_id={id}&authkey={token))
+
+View details of a bookmark
+GET-(http://54.157.180.189:8000/customer/Bookmark/?favourite_ID={bookmark_id}&customer_id={id}&authkey={token))
+
+Create a bookmark
+data={
+    "favourite_charger": 1,
+    "favourite_customer": 1
+}
+ POST-(http://54.157.180.189:8000/customer/EditBookmark/?customer_id={id}&authkey={token))
+
+
+Delete a bookmark
+DELETE-(http://54.157.180.189:8000/customer/EditBookmark/?favourite_ID={bookmark_id}&customer_id={id}&authkey={token))
+
+-----------------------------------------------------------------------------------------
+Appointment
+
+View list of Appointments by customer
+GET-(http://54.157.180.189:8000/customer/AppointmentList/?customer_id={id}&authkey={token})
+
+View details of an Appointment
+GET-(http://54.157.180.189:8000/customer/AppointmentDetail/?app_ID={appointment_id}&customer_id={id}&authkey={token))
+
+Create an Appointment
+data={
+    "app_customer": 1,
+    "app_charger": 1,
+    "app_date_time": "2020-10-17T19:54:00Z",
+    "app_create_date": "2020-10-17",
+    "app_create_time": "19:50:26.652907",
+    "app_duration": 5.0,
+    "app_pay": 356456.0,
+    "app_success": false
+}
+ POST-(http://54.157.180.189:8000/customer/CreateAppointment/?customer_id={id}&authkey={token))
+
+Edit status of an Appointment 
+
+ PUT-(http://54.157.180.189:8000/customer/AppointmentStatus/?app_ID={appointment_id}&customer_id={id}&authkey={token})
+
+
+-----------------------------------------------------------------------------------------
+Vehicle
+
+View list of Vehicles by customer
+GET-(http://54.157.180.189:8000/customer/VehicleList/?customer_id={id}&authkey={token})
+
+View details of a Vehicle
+GET-(http://54.157.180.189:8000/customer/Vehicle/?vehicle_id={vehicle_id}&customer_id={id}&authkey={token})
+
+Create a Vehicle
+data={
+    "vehicle_manufacture": "uygkgkjg",
+    "vehicle_model": "uygkgkjg",
+    "vehicle_customer": 1,
+    "vehicle_type": "fugigj",
+    "is_favourite": true
+}
+
+ POST-(http://54.157.180.189:8000/customer/Vehicle/?customer_id={id}&authkey={token})
+
+Edit a Vehicle
+ PUT-(http://54.157.180.189:8000/customer/Vehicle/?vehicle_id={vehicle_id}&customer_id={id}&authkey={token})
+
+Delete a Vehicle
+DELETE-(http://54.157.180.189:8000/customer/Vehicle/?vehicle_id={vehicle_id}&customer_id={id}&authkey={token})
+
+-----------------------------------------------------------------------------------------
+Billing
+
+Customer creates a bill of an appointment(app_id) using coupon(coupon_id) by
+body data{
+    "bill_amount": 487,
+    "bank_transaction": "et3d",
+    "bill_ticket_number": 765,
+    "bill_app": 1,
+    "bill_host": 1
+}
+
+ POST-(http://54.157.180.189:8000/customer/CreateBill/?customer_id={id}&authkey={token}&app_id={app_id})
+
+-----------------------------------------------------------------------------------------
+Coupon
+
+Gives List of Coupons
+
+GET-(http://54.157.180.189:8000/customer/Coupons/)
+----------------------------------------
+Ads
+
+Gives list of ads
+GET-(http://54.157.180.189:8000/customer/Banners/)
+
+----------------------------------------
+App Info
+
+Gives the Privacy Policy, Terrms and Conditins, Help ,Contact and Credit Point Value 
+
+GET-(http://54.157.180.189:8000/customer/AppInfo/)
+
+----------------------------------------
+notification
+
+Gives and Sends Customer notification
+
+
+For List of Notifications
+
+GET-(http://54.157.180.189:8000/customer/Notification/?customer_id={id}&authkey={token})
+
+body data={
+    N_customer=1,
+    N_Title="Welcome",
+    N_Description="You have succesfully registered"
+}
+
+POST-(http://54.157.180.189:8000/customer/Notification/)
+-----------------------------------------
+Rating
+
+To rate a particular charger 
+It creates a instance of rating and update the charger_rating
+body data={
+    rating=4,
+    rating_customer=1,
+    rating_charger=1
+}
+
+POST-(http://54.157.180.189:8000/customer/Rating/?customer_id={id}&authkey={token}&charger_id=1)
+----------------------------------------
+
+Subscriptions
+
+Gives the list of Subscription Type and Subscribe the customer 
+
+PUT-(http://54.157.180.189:8000/customer/Subscribe/?customer_id={id}&authkey={token}&type={SubscriptionType}&start={start date and time}&end={end date and time})
+
+GET-(http://54.157.180.189:8000/customer/SubscriptionTypeList/
+-------------------------------------------
+Update Customer Credit
+
+body data={
+    customer_credit=466
+}
+ PUT-(http://54.157.180.189:8000/customer/UpdateCustomerCredit/?customer_id={id}&authkey={token})

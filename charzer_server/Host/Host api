@@ -1,0 +1,159 @@
+Host api
+
+It deals with host data and requests.
+
+It contains the following data:
+
+send OTP on host's number.
+verify OTP.
+Registers or login host.
+view and edit profile.
+Viwe all the chargers with upcoming appointment count
+viwe all the upcoming appointments in a charger 
+view all the appointments
+view the earning and total creadit
+Add and edit charger with various sockets and photos
+Check Referal id is valid or not
+get and post notification
+get charger Details
+Get Socket Types
+get Credit Types 
+Update Host Credits
+logout
+
+------------------------------------------------------------------------------------------------
+Register host by OTP
+
+First an OTP is sent on host number.
+POST-[Send OTP](https:http://127.0.0.1:8000/host/SendOtp/?phone={phone})
+
+Then we verify the otp that was sent.
+POST-[Verify OTP](https:http://127.0.0.1:8000/host/VerifyOtp/?phone={phone}&otp={otp})
+
+A host is created with host number, session id and default Host details.
+
+------------------------------------------------------------------------------------------------
+Check Referal ID
+
+Checks the referal id provided by host at the time of registeration
+PUT-(127.0.0.1:8000/host/CheckReferal/?referalID={referalID}&host_id={id}&authkey={token})
+
+------------------------------------------------------------------------------------------------
+Login host by OTP
+
+First an OTP is sent on host number.
+POST-[Send OTP](https:http://127.0.0.1:8000/host/SendOtp/?phone={phone})
+
+Then we verify the otp that was sent.
+POST-[Verify OTP](127.0.0.1:8000/host/VerifyOtp/?phone={phone}&otp={otp})
+
+A  new host session is created and host is logged in
+------------------------------------------------------------------------------------------------
+Appointments
+
+View all the chargers and the upcoming booking no
+GET-(127.0.0.1:8000/host/BookingHost/?host_id={id}&authkey={token})
+
+
+View all the upcoming bookings in a Charger
+GET-(127.0.0.1:8000/host/ChargerAppointments/?host_id={id}&authkey={token}&charger_id={charger_id})
+
+
+
+view all the upcoming, cancelled,pending and completed appointments of a host
+GET-(127.0.0.1:8000/host/AllAppointments/?host_id={id}&authkey={token})
+  
+
+------------------------------------------------------------------------------------------------
+Profile
+
+view host Profile 
+GET-(127.0.0.1:8000/host/HostProfile/?host_id={id}&authkey={token})
+
+Edit host Profile
+PUT-(127.0.0.1:8000/host/EditHostProfile/?host_id={id}&authkey={token})
+
+------------------------------------------------------------------------------------------------
+My Earnings 
+
+View all the billing transaction that were made to the host and host'd total creadits
+  
+GET-(127.0.0.1:8000/host/MyEarning/?host_id={id}&authkey={token})
+
+------------------------------------------------------------------------------------------------
+Add Charger
+
+creates a charger
+
+POST-(127.0.0.1:8000/host/AddCharger/'?host_id={id}&authkey={token})
+
+adds sockets to charger
+
+POST-(127.0.0.1:8000/host/AddSocketToCharget/'?host_id={id}&authkey={token})
+
+adds photos to charger
+
+POST-(127.0.0.1:8000/host/AddPhotosToCharget/'?host_id={id}&authkey={token})
+
+------------------------------------------------------------------------------------------------
+edit Charger
+
+edits a charger
+PUT-(127.0.0.1:8000/host/EditCharger/'?host_id={id}&authkey={token}&charget_id={charget_id})
+
+Edits sockets to charger
+
+PUT-(127.0.0.1:8000/host/EditSocketToCharget/'?host_id={id}&authkey={token}&socket_id={socket_id})
+
+Deletes photos to charger
+
+PUT-(127.0.0.1:8000/host/DeletePhotosToCharget/'?host_id={id}&authkey={token}&photo_id={photo_id})
+
+----------------------------------------
+logout
+PUT-(127.0.0.1:8000/host/DeletePhotosToCharget/'?host_id={id}&authkey={token})
+----------------------------------------
+Notification 
+
+Gives and Sends Host notification
+
+For List of Notifications
+
+GET-(http://54.157.180.189:8000/host/Notification/?host_id={id}&authkey={token})
+
+body data={
+    N_host=1,
+    N_Title="Welcome",
+    N_Description="You have succesfully registered"
+}
+
+POST-(http://54.157.180.189:8000/host/Notification/)
+
+----------------------------------------
+Charger Detail View
+
+Gives the complete detail of the Charging ststion
+
+GET-(http://54.157.180.189:8000/host/ChargerDetail/?host_id={id}&authkey={token}&charger_id={charger_id})
+----------------------------------------
+Socket Types
+
+Give the list of Socket Types
+GET-(http://54.157.180.189:8000/host/Sockets/)
+----------------------------------------
+Credit Types
+
+gives the list of different Credit Types that are possible
+GET-(http://54.157.180.189:8000/host/CreditType/)
+-----------------------------------------
+Update Host Credit
+
+body data={
+    host_credit=466
+}
+ PUT-(http://54.157.180.189:8000/host/UpdateHostCredit/?host_id={id}&authkey={token})
+ ---------------------------------------
+ Total earnig from a charger
+
+ gives the total earning of a particular charger
+ GET-(http://54.157.180.189:8000/host/TotalChargerEarning/?host_id={id}&authkey={token}&charger_id={charger_id})
